@@ -1,0 +1,43 @@
+\section{Problem Formulation}
+
+% Subsection Dataset
+\subsection{Dataset}
+The Phising Dataset\footnote{https://data.mendeley.com/datasets/h3cgnj8hft/1}
+contains 5000 instances of phishing webpages and 5000 of legitimate webpages which
+were collected from January to May 2015 and from May 2017 to June 2017. By leveraging
+the browser automation framework, Selenium WebDriver, extracted features are more
+precise and robust compared to the regular-expression-based approaches~\cite{CHIEW2019153}.
+All webpages in the dataset originates from the following sources:
+\begin{itemize}
+    \item Phishing webpage: PhishTank, OpenPhish
+    \item Legitimate webpage: Alexa, Common Crawl
+\end{itemize}
+
+This dataset is WEKA-ready, which means that it is in a format compatible with the
+WEKA machine learning workbench.
+
+% Subsection Label
+\subsection{Label}
+In this project, I will develop a machine learning (ML) model that could detect whether a given
+website is a phishing or not. Each instance in the dataset is labeled as a phishing
+or a legitimate webpage by a value of 1 or 0 respectively at the \emph{label} column.
+In other words, the aim of this project is to develop a supervised machine learning model
+to classify a given website into two classes, \emph{Phishing} and \emph{Legitimate}, based
+on selected features obtained from the dataset.
+
+\subsection{Feature}
+There are 48 features in total. Basically, most features are the number of occurences of suspicious
+HTML elements or characters in URL or in web context, which are discrete values. Besides, there are
+continuous features which are the percentage of external hyperlinks, resources, redirects in the
+HTML webpage source code. Moreover, there are binary features indicating True/False boolean
+value as 1/0. For example:
+\begin{itemize}
+    \item \emph{DoubleSlashInPath}: Check if ``//'' exist in path of URL.
+    \item \emph{NoHttps}: Check if HTTPS exist in URL.
+    \item \emph{IpAddress}: Check if IP address is used in hostname part of URL.
+\end{itemize}
+
+Additionally, there are categorical features which are encoded into three integer values: -1,0,1.
+
+A full list of features could be investigated at~\cite{CHIEW2019153}\footnote{See a summary of features
+at~\autoref{tab:all_features}}.

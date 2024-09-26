@@ -1,0 +1,82 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage[parfill]{parskip}
+\usepackage{hyperref}
+\usepackage[useregional]{datetime2}
+
+\usepackage{biblatex}
+\addbibresource{references.bib}
+
+\usepackage[T1]{fontenc}
+\usepackage{tgbonum}
+
+\usepackage{listings}
+\usepackage{xcolor}
+
+\usepackage{longtable}
+
+% Define a custom color
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+
+% Define a custom style
+\lstdefinestyle{myStyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    keepspaces=true,                 
+    numbers=left,       
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+}
+
+% Use \lstset to make myStyle the global default
+\lstset{style=myStyle}
+
+\graphicspath{ {./figures/} }
+
+% \title{CS-C3240: Machine Learning\\
+%     \large Project report: Phishing Websites Detection
+% }
+% \author{Cuong Nguyen\\ \href{mailto:cuong.c.nguyen@aalto.fi}{cuong.c.nguyen@aalto.fi} }
+
+\title{CS-C3240: Machine Learning\\
+    \large Project report: Phishing Websites Detection}
+
+\newcommand{\inlinemaketitle}{{\let\newpage\relax\maketitle}}
+
+
+\begin{document}
+
+\inlinemaketitle
+% \tableofcontents
+% \newpage
+
+% \listoffigures
+% \newpage
+
+% Content of report would be written here
+% \include{./tex/task1.tex}
+% ...
+% \include{./tex/task2.tex}
+
+% \include{./tex/intro.tex}
+\include{tex/problem-form}
+\include{tex/method}
+% \include{tex/result}
+% \include{tex/conclusion}
+
+\printbibliography[heading=bibintoc]
+
+\begin{appendix}
+    \include{tex/appendices}
+\end{appendix}
+
+\end{document}
