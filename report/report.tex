@@ -5,6 +5,7 @@
 \usepackage[parfill]{parskip}
 \usepackage{hyperref}
 \usepackage[useregional]{datetime2}
+\usepackage[toc,page]{appendix}
 
 \usepackage{biblatex}
 \addbibresource{references.bib}
@@ -56,7 +57,7 @@
 \begin{document}
 
 \inlinemaketitle
-% \tableofcontents
+\tableofcontents
 % \newpage
 
 % \listoffigures
@@ -67,16 +68,17 @@
 % ...
 % \include{./tex/task2.tex}
 
-% \include{./tex/intro.tex}
+\include{tex/intro.tex}
 \include{tex/problem-form}
 \include{tex/method}
-% \include{tex/result}
-% \include{tex/conclusion}
+\include{tex/result}
+\include{tex/conclusion}
 
 \printbibliography[heading=bibintoc]
 
-\begin{appendix}
+\newpage
+\begin{appendices}
     \include{tex/appendices}
-\end{appendix}
+\end{appendices}
 
 \end{document}

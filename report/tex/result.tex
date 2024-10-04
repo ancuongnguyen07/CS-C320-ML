@@ -1,0 +1,109 @@
+\section{Results}\label{sec:result}
+\subsection{Logistic Regression}
+By running \href{https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html}{GridSearchCV} 
+with the grid parameters (regularization strength, norm of the penalty, and optimization algorithm),
+each with 5-fold cross-validation, I obtained the most optimal model with the following parameters:
+inverse of regularization strength 10, L1 penalty, and \emph{liblinear} solver.
+
+The optimal LR model generated the classification results shown in \autoref{tab:lr_val_report}:
+\begin{table}[ht!]
+    \centering
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+         & Precision & Recall & F1-Score \\
+        \hline
+        Legitimate (0) & 0.93 & 0.92 & 0.92 \\
+        Phishing (1) & 0.92 & 0.93 & 0.93 \\
+        \hline
+        Accuracy & & & 0.92  \\
+        \hline
+    \end{tabular}
+    \caption{Classification Report of the LR model on the validation set.}
+    \label{tab:lr_val_report}
+\end{table}
+
+Generally, the LR had quite good performance on the validation set: all evaluation metrics
+were greater than 0.9. Moreover, \emph{Recall} of the \emph{phishing} class was greater
+than its \emph{Precision}, which satisfied the importance of misclassified phishing websites.
+
+\subsection{Random Forest}
+\href{https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html}{GridSearchCV}
+was employed to find an optimal RF model equipped with the set of hyperparameters, including
+the number of trees, and the maximum depth of the tree. The optimal RF model,
+along with 300 trees and no upper bound of depth\footnote{Then nodes are expanded until all
+leaves are pure or until leaves contain less the minimum number of samples at a leaf node~\cite{RF-scikit-learn}.},
+generated the classification results shown in \autoref{tab:rf_val_report}.
+
+\begin{table}[ht!]
+    \centering
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+         & Precision & Recall & F1-Score \\
+        \hline
+        Legitimate (0) & 0.99 & 0.98 & 0.98 \\
+        Phishing (1) & 0.98 & 0.99 & 0.98 \\
+        \hline
+        Accuracy & & & 0.98  \\
+        \hline
+    \end{tabular}
+    \caption{Classification Report of the RF model on the validation set.}
+    \label{tab:rf_val_report}
+\end{table}
+
+All evaluation metrics produced by the optimal RF model were nearly perfect.
+Especially, the model did excellently on labeling all phishing websites since
+the \emph{Recall} metric was 0.99, which means only 1\% of phishing pages
+in the validation set bypassed the RF classifier.
+
+\subsection{Method Comparision}
+As depicted in Tables \autoref{tab:lr_val_report} and \autoref{tab:rf_val_report}, the RF
+model exhibited substantially superior evaluation metrics (\emph{Accuracy}, \emph{Precision}, \emph{Precision},
+and \emph{F1-Score}) compared to the LR model. This enhancement can be attributed to the RF
+model's capacity to capture intricate, nonlinear feature relationships that the linear
+LR model is unable to discern. Furthermore, the RF model demonstrated consistent
+performance on both the validation and test sets, as illustrated in \autoref{tab:rf_test_report}.
+The negligible discrepancy between the metric scores on these two sets suggests that the
+RF model has effectively generalized to unseen data, indicating robust generalization capabilities.
+
+As a result, the RF model is the final classifier for phishing detection.
+
+\begin{table}[ht!]
+    \centering
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+         & Precision & Recall & F1-Score \\
+        \hline
+        Legitimate (0) & 0.98 & 0.98 & 0.98 \\
+        Phishing (1) & 0.98 & 0.98 & 0.98 \\
+        \hline
+        Accuracy & & & 0.98  \\
+        \hline
+    \end{tabular}
+    \caption{Classification Report of the RF model on the test set.}
+    \label{tab:rf_test_report}
+\end{table}
+
+
+\subsection{Feature Set Comparision}
+While maintaining the same parameter configuration, the model was trained with the baseline 10-feature set
+introduced in~\cite{CHIEW2019153}.
+The evaluation results, presented in Table \ref{tab:rf_baseline_test_report}, demonstrate that the model
+achieved commendable performance even with the reduced feature set. Notably, the F1-Score and Accuracy
+both reached 0.97, only marginally lower than the scores obtained with the full custom feature set
+(F1-Score and Accuracy of 0.98).
+
+\begin{table}[ht!]
+    \centering
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+         & Precision & Recall & F1-Score \\
+        \hline
+        Legitimate (0) & 0.97 & 0.96 & 0.97 \\
+        Phishing (1) & 0.96 & 0.97 & 0.97 \\
+        \hline
+        Accuracy & & & 0.97  \\
+        \hline
+    \end{tabular}
+    \caption{Classification Report of the RF model (baseline feature) on the test set.}
+    \label{tab:rf_baseline_test_report}
+\end{table}

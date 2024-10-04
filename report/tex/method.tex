@@ -1,4 +1,4 @@
-\section{Methods}
+\section{Methods}\label{sec:method}
 
 % Subsection Feature Engineering
 \subsection{Feature Engineering}
@@ -26,23 +26,52 @@ to the curse of dimensionality.
 % Subsection Machine Learning Model
 \subsection{Model}
 \subsubsection{Logistic Regression}
-In this supervised classifying task, I selected Logistic Regression (LR) as a machine learning method since it
+In this supervised classification task, I selected Logistic Regression (LR) as a machine learning method since it
 is a binary classification and easily interpretable. LR categorizes data points by feature vectors
 $\mathbf{x} \in \mathbb{R}^n$ and binary lables $y$, $y \in \{0,1\}$ (encoded to \{Legitimate, Phishing\}) in this case.
-The model uses a linear hypothesis $h(\mathbf{x}) = w^T\mathbf{x}$, with some parameter vector $w \in \mathbb{R}^n$,
-to predict a binary label $y$~\cite{ml-book}.
+The model uses a linear hypothesis $h(\mathbf{x}) = w^T\mathbf{x}$, with some parameter vector
+$w \in \mathbb{R}^n$, to predict a binary label $y$~\cite{ml-book}.
 
 I used the binary logistic loss function
 \begin{align}
-    L((\mathbf{x},y),h) := log(1+exp(-yh(\mathbf{x})))
+    L((\mathbf{x},y),h) = log(1+exp(-yh(\mathbf{x})))
 \end{align}
 where $x$ is feature vectors, $y$ is the true binary label (0 or 1), and $h$ is the linear hypothesis~\cite{ml-book}.
-The reason behind this selection is that it is intuitive and already integrated into \href{https://scikit-learn.org/stable/}{scikit-learn}.
+The reason behind this selection is that it is intuitive and already integrated into
+\href{https://scikit-learn.org/stable/}{scikit-learn}.
 Moreover, it penalizes incorrect predictions more heavily than correct predictions, which is suitable for
 the aim of this task where I need to detect phishing websites.
 
-To evaluate the precision of model, I use accuracy score as the main benchmark during model fine-tuning. To have further assessment,
-I used confusion matrix, precision, recall and F score.
+\subsubsection{Random Forest}
+As shown in~\cite{CHIEW2019153,SAHINGOZ2019345}, Random Forest (RF) outperforms other
+classifier in phishing detection. Additionally, unlike LR, RF does not rely on the
+linear relationship so that it is able to handle non-linear, more complex, relationships
+between features. Those were two main logically reasons leaded me to choose RF as
+a second machine learning model for this phishing dectection task. The loss function for
+RF in classification is the impurity of individual decision region for labels~\cite{ml-book}.
+
+Regarding the splitting criteria, loosely understood as a loss function for decision trees,
+Gini impurity was selected due to its fast computation and good performance on balanced
+data set. Gini impurity measures the heterogeneity of a node, quantifying how often
+a randomly chosen element from the set would be incorrectly classified if it was labeled
+according to the distribution of labels in that node. Mathematically, Gini impurity is
+expressed:
+
+\begin{align}
+    I_G(p) = 1 - \sum_{i=1}^{K}p_i^2
+\end{align}
+
+where $K$ is the set of classes, $p_i$ is the probability of choosing an item with label
+$i$~\cite{gini-formula}. The goal during training is to minimize the Gini impurity of
+the resulting child nodes, creating more homogeneous groups.
+
+\subsubsection{Model Evaluation}
+
+To evaluate the models, I used \emph{Precision} score as the main benchmark during hyperparameter-tuning.
+Additionally, in a phishing dectection context, it is also more important to dectect all
+phishing pages, even if some legitimate pages are misclassified, so the \emph{Recall} metric was also
+considered during hyperparameter-tuning. Hence, \emph{F1-Score } was also used to find balance
+between \emph{Precision} and \emph{Recall} metrics.
 
 % Subsection Training and Validation Dataset
 \subsection{Training and Validation Set}

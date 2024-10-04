@@ -1,10 +1,10 @@
-\section{Problem Formulation}
+\section{Problem Formulation}\label{sec:prob-formulation}
 
 % Subsection Dataset
 \subsection{Dataset}
-The Phising Dataset\footnote{https://data.mendeley.com/datasets/h3cgnj8hft/1}
+The Phishing Dataset
 contains 5000 instances of phishing webpages and 5000 of legitimate webpages which
-were collected from January to May 2015 and from May 2017 to June 2017. By leveraging
+were collected from January to May 2015 and from May 2017 to June 2017~\cite{dataset-source}. By leveraging
 the browser automation framework, Selenium WebDriver, extracted features are more
 precise and robust compared to the regular-expression-based approaches~\cite{CHIEW2019153}.
 All webpages in the dataset originates from the following sources:
@@ -14,7 +14,7 @@ All webpages in the dataset originates from the following sources:
 \end{itemize}
 
 This dataset is WEKA-ready, which means that it is in a format compatible with the
-WEKA machine learning workbench.
+WEKA\footnote{https://waikato.github.io/weka-wiki/} machine learning workbench.
 
 % Subsection Label
 \subsection{Label}
@@ -26,7 +26,7 @@ to classify a given website into two classes, \emph{Phishing} and \emph{Legitima
 on selected features obtained from the dataset.
 
 \subsection{Feature}
-There are 48 features in total. Basically, most features are the number of occurences of suspicious
+There are 48 features in total, which most of them are the number of occurences of suspicious
 HTML elements or characters in URL or in web context, which are discrete values. Besides, there are
 continuous features which are the percentage of external hyperlinks, resources, redirects in the
 HTML webpage source code. Moreover, there are binary features indicating True/False boolean
@@ -34,7 +34,6 @@ value as 1/0. For example:
 \begin{itemize}
     \item \emph{DoubleSlashInPath}: Check if ``//'' exist in path of URL.
     \item \emph{NoHttps}: Check if HTTPS exist in URL.
-    \item \emph{IpAddress}: Check if IP address is used in hostname part of URL.
 \end{itemize}
 
 Additionally, there are categorical features which are encoded into three integer values: -1,0,1.
