@@ -9,16 +9,16 @@ power of a ML model starts deteriorating when the number of dimensions, or featu
 a certain dimensionality~\cite{problem-dimension}. Hence, keeping the number of features growing
 does mean increasing the accuracy of predictions.
 
-To decide which subset of features I should rely on, I took a reference on the baseline features
+To decide which subset of features I should rely on, the baseline features were referenced,
 showed in~\cite{CHIEW2019153}. That baseline feature set were extracted by a feature selection
-framework introduced in~\cite{CHIEW2019153}. Along with those 10 baseline features, I analyzed
-the correlation coefficients between all features and label by utlizing Mutual Information (MI).
-I selected MI since it measures the general dependence between variables, both linear and non-linear
+framework introduced in~\cite{CHIEW2019153}. Along with those 10 baseline features, the correlation
+coefficients between all features and label are analyzed by Mutual Information (MI).
+MI was chosen since it measures the general dependence between variables, both linear and non-linear
 relationship, which is unlike other common approaches such as Spearman or Pearson which only measure
 the linear dependence~\cite{MI-score}.\autoref{fig:mi_score} shows MI scores of all 48 features
-sorted in the ascending order. I selected top 15 features which have the highest MI score then did
-union to the baseline feature subset to have the final feature sets for training. As a result,
-I obtained a set of 16 features as shown in~\autoref{tab:feature_description}. The number of
+sorted in the ascending order. Top 15 features which have the highest MI score were selected then were
+union-ed to the baseline feature subset to have the final feature sets for training. As a result,
+a set of 16 features was introduced as shown in~\autoref{tab:feature_description}. The number of
 features, or dimensions, is sufficient for the dataset of 10,000 entries and not too large leading
 to the curse of dimensionality.
 
@@ -26,13 +26,13 @@ to the curse of dimensionality.
 % Subsection Machine Learning Model
 \subsection{Model}
 \subsubsection{Logistic Regression}
-In this supervised classification task, I selected Logistic Regression (LR) as a machine learning method since it
+In this supervised classification task, Logistic Regression (LR) was proposed as a machine learning method since it
 is a binary classification and easily interpretable. LR categorizes data points by feature vectors
 $\mathbf{x} \in \mathbb{R}^n$ and binary lables $y$, $y \in \{0,1\}$ (encoded to \{Legitimate, Phishing\}) in this case.
 The model uses a linear hypothesis $h(\mathbf{x}) = w^T\mathbf{x}$, with some parameter vector
 $w \in \mathbb{R}^n$, to predict a binary label $y$~\cite{ml-book}.
 
-I used the binary logistic loss function
+The binary logistic loss function was considered
 \begin{align}
     L((\mathbf{x},y),h) = log(1+exp(-yh(\mathbf{x})))
 \end{align}
@@ -40,7 +40,7 @@ where $x$ is feature vectors, $y$ is the true binary label (0 or 1), and $h$ is 
 The reason behind this selection is that it is intuitive and already integrated into
 \href{https://scikit-learn.org/stable/}{scikit-learn}.
 Moreover, it penalizes incorrect predictions more heavily than correct predictions, which is suitable for
-the aim of this task where I need to detect phishing websites.
+the aim of the task of detecting phishing websites.
 
 \subsubsection{Random Forest}
 As shown in~\cite{CHIEW2019153,SAHINGOZ2019345}, Random Forest (RF) outperforms other
@@ -67,7 +67,7 @@ the resulting child nodes, creating more homogeneous groups.
 
 \subsubsection{Model Evaluation}
 
-To evaluate the models, I used \emph{Precision} score as the main benchmark during hyperparameter-tuning.
+To evaluate the models, \emph{Precision} score was measured as the main benchmark during hyperparameter-tuning.
 Additionally, in a phishing dectection context, it is also more important to dectect all
 phishing pages, even if some legitimate pages are misclassified, so the \emph{Recall} metric was also
 considered during hyperparameter-tuning. Hence, \emph{F1-Score } was also used to find balance
@@ -76,11 +76,11 @@ between \emph{Precision} and \emph{Recall} metrics.
 % Subsection Training and Validation Dataset
 \subsection{Training and Validation Set}
 The dataset itself is balanced between two classes, 5000 data poitns for each class, so class balancing step
-is no needed. Following the ``thumbs-up'' rule, I splitted the dataset into three sets, following the ratio 70/15/15,
+is no needed. Following the ``thumbs-up'' rule, the data set was divided into three sets, following the ratio 70/15/15,
 into three subsets: training, validation, and testing. As a result, the training, validation, and testing subset
-has 7000, 1500, and 1500 data points respectively. I chose this ratio of splitting as it is widely used and accepted
+has 7000, 1500, and 1500 data points respectively. This ratio of splitting is reasonable as it is widely used and accepted
 in the machine learning community. Moreover, this ``hold-out'' technique generates a sufficiently large size of
-training and validation data. Importantly, dataset was shuffled to avoid biased sampling. Given three sets, I
-fed the training set to the learning model, then evaluated it using the validation set. If the current parameter
-and configuration of the hypothesis model has a good performance, I will do final testing and benchmark on the
+training and validation data. Importantly, the data set was shuffled to avoid biased sampling. The training
+set was used to train the learning model, then the validation set was used for fine-tuning. If the current parameter
+and configuration of the hypothesis model has a good performance, final testing and benchmark are operated on the
 testing set.
